@@ -1,8 +1,8 @@
 import json
 import pprint
-with open('cars_params_dict1.json', 'r') as f:
+with open('cars_params_dict3.json', 'r') as f:
     result = json.load(f)
-    # pprint.pprint(result)
+    pprint.pprint(result)
 
 
 # with open('parametrs_cars_list8.json', 'r') as f:
@@ -17,9 +17,13 @@ with open('cars_params_dict1.json', 'r') as f:
 #     result = json.load(f)
 #     pprint.pprint(result)
 print(len(result))
+Nonev = []
 for i in range(len(result)):
-    x = result[i]['price']
-    pprint.pprint(x)
+    if result[i]['price'] == 'None' :
+        # x = result[i]['price']['None']
+        Nonev.append(i)
+    # pprint.pprint(x)
+print(len(Nonev))
     #
 # print(len(result))
 # pp = json.loads(result)

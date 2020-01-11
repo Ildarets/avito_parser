@@ -5,52 +5,38 @@ import pprint
 import time
 import json
 
+DEEP = 5
+START_PAGE = 0
+END_PAGE = 10
+NAME_FILE = 'cars_params_dict3.json'
+
 parametrs_cars = []
 list_models = List_Models()
 all_list_models = list_models.list_models()
 
-non_duplicate = list(set(all_list_models))
-all_list_models = non_duplicate
-
-
 def write_json(cars_dict):
     try:
-        data = json.load(open('cars_params_dict1.json'))
+        data = json.load(open(NAME_FILE))
     except:
         data = []
-    data.append(car_params)
-    with open('cars_params_dict1.json', 'w') as file:
+    data.append(cars_dict)
+    with open(NAME_FILE, 'w') as file:
         json.dump(data, file, ensure_ascii=False)
 
-
-# car = {}
-# with open ('parametrs_cars8.json', 'w') as f:
-#     json.dump(car,f)
-
 # #РАбочй код
-for model in all_list_models[0:22]:
-    href_BMV = Href_Model(model, 2)
+for model in all_list_models[START_PAGE:END_PAGE]:
+    href_BMV = Href_Model(model, DEEP)
     list_cars_href = href_BMV.href_models()
-    # print(href_BMV.href_models())
     print(len(list_cars_href))
     pprint.pprint(list_cars_href)
-    try:
-        for href_model in list_cars_href:
-            # print(href_model)
-            time.sleep(0.5)
+    for href_model in list_cars_href:
+        time.sleep(0.5)
+        try:
             params = Deep_Parser(href_model)
             car_params = params.parsing()
             parametrs_cars.append(car_params)
-            # with open('parametrs_cars9.json', 'a') as f:
-            #     json.dump(car_params, f)
             pprint.pprint(car_params)
             write_json(car_params)
-    except:
-        time.sleep(60)
-# pprint.pprint(parametrs_cars)
+        except:
+            time.sleep(60)
 
-# with open ('parametrs_cars_list9.json', 'w', encoding='utf-8') as f:
-#     json.dump(parametrs_cars,f)
-
-# param = Deep_Parser('/krasnoyarsk/avtomobili/ford_taurus_1992_1800191092')
-# pprint.pprint(param.parsing())
