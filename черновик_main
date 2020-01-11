@@ -1,0 +1,65 @@
+from class_Href_Model import Href_Model
+from class_list_models import List_Models
+from class_Deep_Parser import Deep_Parser
+from Deep_parser import Deep_Parser
+import pprint
+import time
+import json
+
+parametrs_cars = []
+list_models = List_Models()
+all_list_models = list_models.list_models()
+# pprint.pprint(all_list_models)
+#
+# param = Deep_Parser('/petrozavodsk/avtomobili/bmw_x5_2004_1834647809')
+# pprint.pprint(param.parsing())
+
+
+# for model in all_list_models:
+#     href_models_ = Href_Model(model, 1)
+#     href_models_list = href_models_.href_models()
+#     for model_params in href_models_list:
+#         params = Deep_Parser(model_params)
+#         car_params = params.parsing()
+#         parametrs_cars.append(car_params)
+#
+# pprint.pprint(parametrs_cars)
+
+# # Рабочий код
+# print(all_list_models[0])
+# href_models_ = Href_Model(all_list_models[0], 1)
+# href_ = href_models_.href_models()
+# print(href_)
+
+
+# href_models_list = href_models_.href_models()
+# print(href_models_list)
+# for model_params in href_models_list:
+#     print(model_params)
+#     params = Deep_Parser(model_params)
+#     car_params = params.parsing()
+#     parametrs_cars.append(car_params)
+#
+# pprint.pprint(parametrs_cars)
+
+
+
+# #РАбочй код
+href_BMV = Href_Model('audi', 2)
+list_cars_href = href_BMV.href_models()
+# print(href_BMV.href_models())
+print(len(list_cars_href))
+pprint.pprint(list_cars_href)
+for href_model in list_cars_href:
+    print(href_model)
+    time.sleep(0.5)
+    params = Deep_Parser(href_model)
+    car_params = params.parsing()
+    parametrs_cars.append(car_params)
+pprint.pprint(parametrs_cars)
+
+with open ('parametrs_cars.json', 'w') as f:
+    json.dump(parametrs_cars,f)
+#
+# param = Deep_Parser('/tyumen/avtomobili/audi_a4_2001_1720458009')
+# pprint.pprint(param.parsing())

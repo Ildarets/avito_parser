@@ -2,18 +2,18 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-domain = 'https://www.avito.ru/rossiya/avtomobili'
+domain = 'https://www.avito.ru'
 
 
 class Deep_Parser:
     def __init__(self, url_car):
-        url_car = url_car.split('/')
-        url_car = url_car[3]
+        # url_car = url_car.split('/')
+        # url_car = url_car[3]
         self.url_car = url_car
 
     def parsing(self):
 
-        url = f'{domain}/{self.url_car}'
+        url = f'{domain}{self.url_car}'
         # headers = {
         #     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         #     'accept-encoding': 'gzip, deflate, br',
@@ -50,15 +50,11 @@ class Deep_Parser:
 
         parameters_car = {}
         price_soup = soup.find('span', class_='js-item-price')
-        # # price_car = price_soup.contents[1].contents[1].contents[0]
-        # # price_car = price_car.replace(' ', '')
-        # # price_car = price_soup
         try:
             price_car = price_soup.get('content')
         except AttributeError:
             price_car = 'None'
-        # # price_car = price_car.get('content')
-        #
+
         parameters_car['price'] = price_car
         time.sleep(0.1)
         parameters = soup.find_all('li', class_='item-params-list-item')
@@ -68,6 +64,6 @@ class Deep_Parser:
             child_name = str(child[0].replace(' ', ''))
             child_param = str(child[1].replace(' ', ''))
             parameters_car[child_name] = child_param
-
+        # print(url)
         return parameters_car
         # return url
