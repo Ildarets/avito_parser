@@ -44,3 +44,6 @@ class List_Models:
         all_list_models = non_duplicate
         all_list_models = sorted(all_list_models)
         return all_list_models
+
+# для парсинга в вк
+# https://vk.com/groups?act=catalog&c%5Bcountry%5D=1&c%5Bper_page%5D=40&c%5Bsection%5D=communities&c%5Bskip_catalog%5D=1
