@@ -1,6 +1,6 @@
 import json
 import pprint
-with open('cars_params_dict3.json', 'r') as f:
+with open('cars_params_vaz_lada1.json', 'r') as f:
     result = json.load(f)
     pprint.pprint(result)
 

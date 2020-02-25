@@ -6,9 +6,9 @@ import time
 import json
 
 DEEP = 5
-START_PAGE = 0
-END_PAGE = 10
-NAME_FILE = 'cars_params_dict3.json'
+START_PAGE = 10
+END_PAGE = 100
+NAME_FILE = 'cars_params_dict5.json'
 
 parametrs_cars = []
 list_models = List_Models()
@@ -30,7 +30,7 @@ for model in all_list_models[START_PAGE:END_PAGE]:
     print(len(list_cars_href))
     pprint.pprint(list_cars_href)
     for href_model in list_cars_href:
-        time.sleep(0.5)
+        time.sleep(1)
         try:
             params = Deep_Parser(href_model)
             car_params = params.parsing()
