@@ -5,11 +5,10 @@ import pprint
 import time
 import json
 
-count_mark = 123590
+count_mark = 2000
 DEEP = int(count_mark / 54)
-MARK_NAME = 'vaz_lada'
-# END_PAGE = None
-NAME_FILE = f'cars_params_{MARK_NAME}1.json'
+MARK_NAME = 'porsche'
+NAME_FILE = f'cars_params_{MARK_NAME}.json'
 
 parametrs_cars = []
 list_models = List_Models()
@@ -25,13 +24,12 @@ def write_json(cars_dict):
         json.dump(data, file, ensure_ascii=False)
 
 # #РАбочй код
-# for model in all_list_models[MARK_NOMBER]:
+
 href_BMV = Href_Model(MARK_NAME, DEEP)
 list_cars_href = href_BMV.href_models()
 print(len(list_cars_href))
-# pprint.pprint(list_cars_href)
 for href_model in list_cars_href:
-    time.sleep(1)
+    time.sleep(0.7)
     try:
         params = Deep_Parser(href_model)
         car_params = params.parsing()
@@ -39,5 +37,5 @@ for href_model in list_cars_href:
         pprint.pprint(car_params)
         write_json(car_params)
     except:
-        time.sleep(60)
+        time.sleep(30)
 

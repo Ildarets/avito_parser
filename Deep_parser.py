@@ -30,23 +30,6 @@ class Deep_Parser:
         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36',
         }
 
-        # headers = {
-        #     'authority': 'an.yandex.ru',
-        #     'method': 'GET',
-        #     'path': '/meta/189903?grab=dNCQ0LLQuNGC0L4g4oCUINC-0LHRitGP0LLQu9C10L3QuNGPINCywqDQoNC-0YHRgdC40Lgg4oCUINCe0LHRitGP0LLQu9C10L3QuNGPINC90LDCoNGB0LDQudGC0LUg0JDQstC40YLQvgoy0KDQtdC60L7QvNC10L3QtNCw0YbQuNC4INC00LvRjyDQstCw0YEgCjPQl9Cw0LPRgNGD0LfQuNGC0LUg0L_RgNC40LvQvtC20LXQvdC40LUg0JDQstC40YLQviAK&target-ref=https%3A%2F%2Fwww.avito.ru%2Frossiya&page-ref=https%3A%2F%2Fwww.avito.ru%2Fsarov&charset=utf-8&duid=MTU3ODQxNzIwNjk2NzI0MDgzOA%3D%3D&imp-id=127&partner-stat-id=100000079&enable-flat-highlight=1&test-tag=71468255805442&ss-skip-token-length=20&allow-repeat-ads=0&ad-session-id=7660661581774697345&target-id=73025066&pcode-version=10370&flash-ver=0&available-width=300&layout-config=%7B%22win_width%22%3A914%2C%22win_height%22%3A937%2C%22width%22%3A300%2C%22height%22%3A0%2C%22left%22%3A682%2C%22top%22%3A678%2C%22visible%22%3A1%2C%22ad_no%22%3A0%2C%22req_no%22%3A2%7D&callback=Ya%5B8454343842637%5D',
-        #     'scheme': 'https',
-        #     'accept': '*/*',
-        #     'accept-encoding': 'gzip, deflate, br',
-        #     'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-        #     'content-type': 'application/x-www-form-urlencoded',
-        #     'cookie': 'yandexuid=6807681601578082398; i=7+LmaE0F1I0LFo8p89ALQ8n5YV4frYge8n4tg2tPn0Oznn7IN7XCCjbuLM7CJ2GqgFlMHE00tY9K4XmCbELAzcxnWo4=; yp=1893442399.yrtsi.1578082399; yuidss=6807681601578082398; _ym_uid=1578255989775831569; _ym_d=1578255989; mda=0; skid=9329353061578391736; ymex=1897123244.yrts.1581763244#1893442399.yrtsi.1578082399',
-        #     'origin': 'https://www.avito.ru',
-        #     'referer': 'https://www.avito.ru/rossiya',
-        #     'sec-fetch-dest': 'empty',
-        #     'sec-fetch-mode': 'cors',
-        #     'sec-fetch-site': 'cross-site',
-        #     'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.106 Safari/537.36'
-        # }
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -58,7 +41,26 @@ class Deep_Parser:
             price_car = 'None'
 
         parameters_car['price'] = price_car
-        time.sleep(0.1)
+        parameters_car['referense'] = url
+
+        # качаем изображения
+        images_car_class = soup.find_all('div', class_ = 'gallery-img-frame js-gallery-img-frame')
+        image_list = []
+        for img_cl in images_car_class:
+            img = img_cl.get('data-url')
+            img = img.replace('//', '')
+            image_list.append(img)
+        parameters_car['image_list'] = image_list
+
+
+        #  качаем текст
+        text_car = soup.find('div', class_='item-description-text')
+        text_car = text_car.get_text()
+        parameters_car['text'] = text_car
+
+
+
+        # time.sleep(0.1)
         parameters = soup.find_all('li', class_='item-params-list-item')
         for child in parameters:
             child = child.get_text()

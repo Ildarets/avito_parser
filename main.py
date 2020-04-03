@@ -5,10 +5,10 @@ import pprint
 import time
 import json
 
-DEEP = 5
+DEEP = 2
 START_PAGE = 10
-END_PAGE = 100
-NAME_FILE = 'cars_params_dict5.json'
+END_PAGE = 20
+NAME_FILE = 'cars_.json'
 
 parametrs_cars = []
 list_models = List_Models()

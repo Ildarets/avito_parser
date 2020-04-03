@@ -1,11 +1,11 @@
 import json
 import pprint
-with open('cars_params_vaz_lada1.json', 'r') as f:
+with open('cars_params_nissan.json', 'r') as f:
     result = json.load(f)
     pprint.pprint(result)
 
-
-# with open('parametrs_cars_list8.json', 'r') as f:
+#
+# with open('list_href_cars_mitsubishi.json', 'r') as f:
 #     result = json.load(f)
 #     pprint.pprint(result)
 
